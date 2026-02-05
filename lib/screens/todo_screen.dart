@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:todo_app/screens/add_task_screen.dart';
 import 'package:todo_app/widgets/todo_card.dart';
 
 class ToDoScreen extends StatelessWidget {
@@ -7,6 +8,18 @@ class ToDoScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButtonLocation: .centerFloat,
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          showModalBottomSheet(
+            context: context,
+            builder: (context) => AddTaskScreen(),
+          );
+        },
+        backgroundColor: Colors.indigo[400],
+        shape: const CircleBorder(),
+        child: Icon(Icons.add, color: Colors.white),
+      ),
       backgroundColor: Colors.teal[400],
       body: Container(
         padding: EdgeInsets.only(left: 20, right: 20, top: 60, bottom: 80),
@@ -18,7 +31,7 @@ class ToDoScreen extends StatelessWidget {
               children: [
                 IconButton(
                   onPressed: () {},
-                  icon: Icon(Icons.menu, color: Colors.white,size: 40,),
+                  icon: Icon(Icons.menu, color: Colors.white, size: 40),
                 ),
                 SizedBox(height: 10),
                 Text(
