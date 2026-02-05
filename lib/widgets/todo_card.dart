@@ -6,7 +6,7 @@ class TodoCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      title: Text("Recording", style: TextStyle(fontSize: 14)),
+      title: Text("Recording", style: TextStyle(fontSize: 16  ,color: Colors.black, fontWeight: FontWeight.normal)),
 
       trailing: Checkbox(value: false, onChanged: null),
     );
