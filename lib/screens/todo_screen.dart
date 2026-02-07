@@ -1,10 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:todo_app/models/task.dart';
 import 'package:todo_app/screens/add_task_screen.dart';
 import 'package:todo_app/widgets/todo_card.dart';
 
-class ToDoScreen extends StatelessWidget {
+class ToDoScreen extends StatefulWidget {
   const ToDoScreen({super.key});
 
+  @override
+  State<StatefulWidget> createState() => _ToDoScreenState();
+}
+
+class _ToDoScreenState extends State<ToDoScreen> {
+  List<Task> tasks = [Task(name: "recording video")];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -13,7 +20,13 @@ class ToDoScreen extends StatelessWidget {
         onPressed: () {
           showModalBottomSheet(
             context: context,
-            builder: (context) => AddTaskScreen(),
+            builder: (context) => AddTaskScreen(
+              newTaskCallBack: (newTaskTitle) {
+                setState(() {
+                  tasks.add(Task(name: newTaskTitle));
+                });
+              },
+            ),
           );
         },
         backgroundColor: Colors.indigo[400],
@@ -46,7 +59,7 @@ class ToDoScreen extends StatelessWidget {
             ),
             SizedBox(height: 10),
             Text(
-              "4 tasks",
+              "${tasks.length} tasks",
               textAlign: .start,
               style: TextStyle(
                 color: Colors.white,
@@ -62,7 +75,12 @@ class ToDoScreen extends StatelessWidget {
                   color: Colors.white,
                   borderRadius: BorderRadius.all(Radius.circular(14)),
                 ),
-                child: ListView(children: [TodoCard()]),
+                child: ListView.builder(
+                  itemCount: tasks.length,
+                  itemBuilder: (context, index) {
+                    return TodoCard(task: tasks[index]);
+                  },
+                ),
               ),
             ),
           ],
